@@ -1,0 +1,317 @@
+# 🛡️ AI Compliance Lite — Full Platform Master Blueprint & Specification
+
+> **Platform Vision:** Replaces $50,000 compliance consultants with a $299/month AI-powered SaaS platform that helps SaaS startups achieve **SOC 2 Type II**, **HIPAA**, and **GDPR** compliance in days instead of months.
+
+---
+
+## 📑 Table of Contents
+1. [Executive Summary & Product Vision](#1-executive-summary--product-vision)
+2. [Full Technology Stack](#2-full-technology-stack)
+3. [Department-Wise Architecture & Execution](#3-department-wise-architecture--execution)
+4. [Complete Project Folder Hierarchy](#4-complete-project-folder-hierarchy)
+5. [Database Schema & Supabase RLS Security](#5-database-schema--supabase-rls-security)
+6. [Clerk Authentication & Identity Architecture](#6-clerk-authentication--identity-architecture)
+7. [AI Policy Engine & Multi-LLM Pipeline](#7-ai-policy-engine--multi-llm-pipeline)
+8. [Backend REST API Endpoint Specifications](#8-backend-rest-api-endpoint-specifications)
+9. [Frontend Core Platform Modules](#9-frontend-core-platform-modules)
+10. [Monetization & Stripe Billing Structure](#10-monetization--stripe-billing-structure)
+11. [Deployment & Local Run Guide](#11-deployment--local-run-guide)
+
+---
+
+## 1. Executive Summary & Product Vision
+
+### The Problem
+SaaS startups lose $100K+ enterprise deals because enterprise security teams require **SOC 2 Type II**, **HIPAA**, or **GDPR** certifications. Hiring compliance consultants costs **$50,000+** and takes **6–9 months** of tedious manual interview sessions and generic Word template editing.
+
+### The Solution
+**AI Compliance Lite** automates compliance engineering by combining:
+1. **AI Policy Synthesizer:** Instantly generates Big-4 auditor-ready policies tailored to your tech stack.
+2. **Control Matrix & Evidence Binder:** Tracks SOC 2 Trust Services Criteria, HIPAA § 164.312 safeguards, and GDPR articles with screenshot/config proof upload.
+3. **Auditor PDF Package Exporter:** 1-click generation of formal compliance binders.
+4. **24/7 AI Compliance Copilot:** Instant answers to auditor security questionnaires.
+
+---
+
+## 2. Full Technology Stack
+
+```mermaid
+graph TD
+    User([Founder / Security Lead]) --> Frontend[React 18 + Vite + Tailwind CSS + Zustand]
+    Frontend --> Auth[Clerk Auth SDK]
+    Frontend -->|REST API Requests| Backend[Node.js + Express + TypeScript API]
+    Backend -->|JWT Verification & RLS| Supabase[(Supabase PostgreSQL + RLS)]
+    Backend -->|Multi-LLM Synthesizer| AI[OpenRouter / LangChain Engine]
+    Backend -->|Subscriptions| Stripe[Stripe Payments API]
+```
+
+### **Frontend**
+- **Core:** React 18, Vite 5, TypeScript 5.4
+- **Styling:** Tailwind CSS 3.4 (Glassmorphism, custom dark mode palette)
+- **State Management:** Zustand (`useComplianceStore`)
+- **API Cache & Queries:** TanStack React Query v5 + Axios
+- **Authentication:** `@clerk/clerk-react` (Native `<SignIn />`, `<SignUp />`, `<UserButton />`)
+- **Document Exporter:** jsPDF (Auditor PDF binder generator)
+- **Icons & Visuals:** Lucide React
+
+### **Backend**
+- **Runtime:** Node.js + Express + TypeScript (`ts-node-dev`)
+- **Database:** Supabase PostgreSQL with Row Level Security (RLS)
+- **Authentication:** Clerk Node SDK & JWT claim parsing (`req.userId`)
+- **AI Integration:** OpenRouter API (Multi-LLM: Llama 3.1 70B / Claude) + High-Precision Compliance Synthesizer
+- **Payments:** Stripe SDK (`stripe.checkout.sessions`)
+- **Security & Logging:** Helmet, CORS, custom Winston request loggers
+
+---
+
+## 3. Department-Wise Architecture & Execution
+
+### 1. Product Management (PM)
+- **PRD & Roadmap:** Defined 3-tier release progression:
+  - **MVP (Week 1–2):** AI Policy Generator, Control Dashboard, Auditor PDF Checklist, Stripe $299/mo, Clerk Auth, Supabase RLS.
+  - **Scale (Month 2–6):** AI Copilot chatbot, Slack/GitHub integrations, Team RBAC roles.
+  - **Enterprise (Month 7–12):** White-label domain, SAML SSO, Custom AWS/GCP integrations.
+
+### 2. Frontend Engineering Team
+- Implemented responsive glassmorphism UI with Tailwind CSS.
+- Integrated Clerk React SDK for login, signup, SSO, and user profile management.
+- Built 5-step interactive onboarding wizard, compliance score gauge, policy editor, control evidence uploader, and PDF binder exporter.
+
+### 3. Backend & Security Engineering Team
+- Built RESTful Express architecture with TypeScript.
+- Created Supabase PostgreSQL schema with strict RLS policies bound to `requesting_user_id()`.
+- Implemented Clerk JWT token verification middleware.
+
+### 4. AI & Compliance Engineering Team
+- Designed versioned prompt contracts for SOC 2 (CC6.1, CC6.6, CC8.1), HIPAA (§ 164.312), and GDPR.
+- Built deterministic compliance synthesizer engine providing 100% audit-ready fallback outputs.
+
+---
+
+## 4. Complete Project Folder Hierarchy
+
+```
+USA/
+├── client/                      # React 18 + Vite + TypeScript Frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ClerkAuthModal.tsx      # Clerk Auth modal (<SignIn />, <SignUp />)
+│   │   │   ├── ComplianceGauge.tsx     # Circular SVG progress gauge (0-100%)
+│   │   │   ├── EvidenceUploadModal.tsx # Proof attachment modal for controls
+│   │   │   ├── Navbar.tsx             # Main header with Clerk <UserButton />
+│   │   │   ├── PolicyViewModal.tsx     # Policy viewer & print/download modal
+│   │   │   └── Sidebar.tsx            # App navigation menu
+│   │   ├── pages/
+│   │   │   ├── AiAssistantPage.tsx    # AI Copilot Q&A chatbot
+│   │   │   ├── AuditChecklistPage.tsx # Audit prep checklist & PDF exporter
+│   │   │   ├── ControlDashboardPage.tsx # Control matrix binder
+│   │   │   ├── DashboardPage.tsx      # Main command center
+│   │   │   ├── LandingPage.tsx        # High-converting SaaS landing page
+│   │   │   ├── OnboardingPage.tsx     # 5-step startup setup wizard
+│   │   │   ├── PolicyGeneratorPage.tsx # AI policy synthesis engine UI
+│   │   │   └── SettingsPage.tsx       # Team RBAC, Stripe, Supabase panel
+│   │   ├── services/
+│   │   │   └── api.ts                 # Axios API client with local fallback
+│   │   ├── store/
+│   │   │   └── useComplianceStore.ts  # Zustand global state store
+│   │   ├── types/
+│   │   │   └── index.ts               # TypeScript interfaces
+│   │   ├── App.tsx                    # Main layout & tab router
+│   │   ├── index.css                  # Custom Tailwind CSS & glassmorphic utilities
+│   │   ├── main.tsx                   # React root wrapped in ClerkProvider
+│   │   └── vite-env.d.ts              # Vite environment types
+│   ├── .env                           # Live Clerk Publishable Key
+│   ├── index.html                     # HTML head with Inter typography & SEO
+│   ├── package.json                   # Frontend dependencies
+│   ├── tailwind.config.js             # Theme tokens & keyframes
+│   └── vite.config.ts                 # Vite server & proxy configuration
+│
+├── server/                      # Node.js + Express + TypeScript Backend
+│   ├── src/
+│   │   ├── db/
+│   │   │   └── schema.sql             # Supabase PostgreSQL DDL & RLS Policies
+│   │   ├── middleware/
+│   │   │   └── auth.ts                # Clerk JWT verification middleware
+│   │   ├── routes/
+│   │   │   ├── assistantRoutes.ts     # AI Chatbot Q&A endpoints
+│   │   │   ├── checklistRoutes.ts     # Audit checklist endpoints
+│   │   │   ├── controlRoutes.ts       # Control status & evidence routes
+│   │   │   ├── policyRoutes.ts        # Policy generation endpoints
+│   │   │   ├── scoreRoutes.ts         # Compliance score calculator
+│   │   │   └── stripeRoutes.ts        # Stripe Checkout & webhook handler
+│   │   ├── services/
+│   │   │   ├── aiService.ts           # OpenRouter & Synthesizer engine
+│   │   │   └── supabaseClient.ts      # Supabase client initializer
+│   │   ├── types/
+│   │   │   └── index.ts               # Server TypeScript definitions
+│   │   └── index.ts                   # Express server entry point
+│   ├── .env                           # Live Clerk Secret Key & Port
+│   ├── package.json                   # Backend dependencies
+│   └── tsconfig.json                  # TypeScript compiler settings
+│
+├── package.json                       # Workspace root package
+└── walkthrough.md                     # Platform documentation
+```
+
+---
+
+## 5. Database Schema & Supabase RLS Security
+
+### SQL Schema (`server/src/db/schema.sql`)
+
+```sql
+-- 1. Users Table (Synced with Clerk user_id)
+CREATE TABLE IF NOT EXISTS public.users (
+  id TEXT PRIMARY KEY, -- Clerk user_id (e.g. 'user_2N...')
+  email TEXT NOT NULL,
+  company_name TEXT,
+  industry TEXT,
+  subscription_status TEXT DEFAULT 'active',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Policies Table
+CREATE TABLE IF NOT EXISTS public.policies (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  framework TEXT NOT NULL, -- 'SOC 2', 'HIPAA', 'GDPR'
+  category TEXT NOT NULL,
+  content TEXT NOT NULL,
+  version INT DEFAULT 1,
+  status TEXT NOT NULL DEFAULT 'Published',
+  compliance_tags JSONB DEFAULT '[]'::jsonb,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 3. Controls Table
+CREATE TABLE IF NOT EXISTS public.controls (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+  code TEXT NOT NULL, -- 'CC6.1', '164.312'
+  title TEXT NOT NULL,
+  framework TEXT NOT NULL,
+  category TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'Not Started', -- 'Complete', 'In Progress'
+  evidence_url TEXT,
+  evidence_name TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 4. Enable Row Level Security (RLS)
+ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.policies ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.controls ENABLE ROW LEVEL SECURITY;
+
+-- 5. RLS Helper & User Policies
+CREATE OR REPLACE FUNCTION public.requesting_user_id()
+RETURNS TEXT AS $$
+BEGIN
+  RETURN COALESCE(
+    NULLIF(current_setting('app.current_user_id', true), ''),
+    (auth.jwt() ->> 'sub')
+  );
+END;
+$$ LANGUAGE plpgsql STABLE;
+
+CREATE POLICY "Users view own policies" ON public.policies
+  FOR ALL USING (user_id = public.requesting_user_id());
+```
+
+---
+
+## 6. Clerk Authentication & Identity Architecture
+
+### Live Keys Connected
+- **Publishable Key:** `pk_test_bWF4aW11bS1raWQtMjMuY2xlcmsuYWNjb3VudHMuZGV2JA`
+- **Secret Key:** `sk_test_oOi8EyhPWv5Etbi2qJZQT2XSmGXe3Hx70QMXEc2X0w`
+
+### Flow
+1. User logs in via Clerk `<SignIn />` component or Google SSO.
+2. Clerk issues a signed JWT session token containing `user_id`.
+3. Client passes token in HTTP header: `Authorization: Bearer <clerk_jwt>`.
+4. Express middleware (`auth.ts`) extracts `user_id` and sets it for Supabase RLS execution context.
+
+---
+
+## 7. AI Policy Engine & Multi-LLM Pipeline
+
+```typescript
+// Prompt synthesis input contract
+interface PolicyGenerationInput {
+  framework: 'SOC 2' | 'HIPAA' | 'GDPR';
+  companyName: string;
+  industry: string;
+  cloudProvider: string;
+  dataTypes: string[];
+  teamSize: string;
+}
+```
+
+The system sends structured prompts to **OpenRouter API** (`meta-llama/llama-3.1-70b-instruct`). If offline or without an API key, the built-in **AI Compliance Synthesizer** generates a complete 4-section policy:
+- **Purpose & Scope:** tailored to cloud provider (AWS / Supabase).
+- **Data Classification:** tailored to sensitive data types.
+- **Mandated Technical Controls:** CC6.1 Logical Access, TLS 1.3, AES-256, MFA.
+- **Incident Response & Monitoring:** audit logging SLAs.
+
+---
+
+## 8. Backend REST API Endpoint Specifications
+
+| Method | Route | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Service status, connected providers (Clerk, Supabase, AI, Stripe) |
+| `GET` | `/api/policies` | Fetch user policies from Supabase with RLS |
+| `POST` | `/api/policies/generate` | Trigger AI Policy Synthesizer |
+| `GET` | `/api/controls` | Retrieve control matrix items & evidence links |
+| `PATCH` | `/api/controls/:id` | Update control status & attach evidence proof |
+| `GET` | `/api/checklists` | Fetch audit prep checklist items |
+| `GET` | `/api/score` | Compute overall compliance readiness score (0-100%) |
+| `POST` | `/api/assistant/chat` | AI Copilot Q&A chatbot endpoint |
+| `POST` | `/api/stripe/create-checkout-session` | Generate Stripe subscription checkout link |
+
+---
+
+## 9. Frontend Core Platform Modules
+
+1. **Landing Page:** Hero banner, cost comparison ($50K vs $299/mo), and interactive ROI calculator.
+2. **Onboarding Wizard:** 5-question wizard establishing startup profile and compliance scope.
+3. **Command Center Dashboard:** Circular compliance gauge, framework progress radars, and priority tasks.
+4. **AI Policy Generator:** Custom prompt parameters, live policy synthesis, tag filtering, and print modal.
+5. **Control Dashboard:** Matrix of SOC 2 Trust Services Criteria & HIPAA Safeguards with evidence upload modal.
+6. **Audit Checklist:** Organized auditor tasks with **1-Click PDF Exporter** (`jsPDF`).
+7. **AI Copilot Chatbot:** 24/7 compliance assistant with pre-built prompt cards.
+8. **Settings & Team Portal:** Clerk RBAC roles, Stripe plan selector, and Supabase RLS diagnostic panel.
+
+---
+
+## 10. Monetization & Stripe Billing Structure
+
+- **Growth SaaS Plan ($299/month):**
+  - Full SOC 2, HIPAA & GDPR AI Generators
+  - Unlimited Evidence Uploads to Supabase
+  - 1-Click Auditor PDF Pack Exporter
+  - 24/7 AI Compliance Copilot Chatbot
+- **Enterprise Plan ($999/month):**
+  - Custom White-Label Domain
+  - Dedicated Big-4 Auditor Sign-off Review
+  - Full REST API & Webhooks Access
+  - Okta / SAML / Custom SSO Integration
+
+---
+
+## 11. Deployment & Local Run Guide
+
+### Running Locally
+```bash
+# 1. Start Express Backend
+cd server
+npm run dev
+# Running on http://localhost:5000
+
+# 2. Start Vite Frontend
+cd client
+npm run dev
+# Running on http://localhost:5173
+```
