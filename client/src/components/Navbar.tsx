@@ -4,11 +4,15 @@ import { useComplianceStore } from '../store/useComplianceStore';
 import { UserButton, useUser } from '@clerk/clerk-react';
 
 export const Navbar: React.FC = () => {
-  const { activeTab, setActiveTab, setAuthModalOpen, isAuthenticated, score } = useComplianceStore();
+  const { activeTab, setActiveTab, setAuthModalOpen, isAuthenticated, score, userProfile } = useComplianceStore();
   const { isSignedIn, user } = useUser();
 
   const isUserLoggedIn = isSignedIn || isAuthenticated;
   const currentScore = score?.overall_score ?? 85;
+
+  const rawUser = user as any;
+  const rawProfile = userProfile as any;
+  const displayName = rawUser?.fullName || rawUser?.firstName || rawUser?.primaryEmailAddress?.emailAddress?.split('@')[0] || rawProfile?.firstName || rawProfile?.email?.split('@')[0] || rawProfile?.companyName || 'Compliance Officer';
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-xl border-b border-sky-100/80 px-4 lg:px-8 py-3">
@@ -81,11 +85,18 @@ export const Navbar: React.FC = () => {
             <span className="font-mono text-sky-700 font-extrabold">{currentScore}%</span>
           </div>
 
-          {isSignedIn && (
-            <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-sky-100 shadow-sm">
-              <UserButton afterSignOutUrl="/" />
-              <span className="text-xs font-bold text-slate-800 hidden sm:inline">
-                {user?.firstName || user?.primaryEmailAddress?.emailAddress?.split('@')[0] || 'Account'}
+          {/* Welcome User Badge after login */}
+          {isUserLoggedIn && (
+            <div className="flex items-center gap-2 bg-gradient-to-r from-sky-50 via-blue-50 to-sky-100/80 px-4 py-1.5 rounded-full border border-sky-200/90 shadow-sm animate-fadeIn">
+              {isSignedIn ? (
+                <UserButton afterSignOutUrl="/" />
+              ) : (
+                <div className="w-6 h-6 rounded-full bg-sky-600 flex items-center justify-center text-white text-xs font-black shadow-md">
+                  {displayName.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <span className="text-xs font-extrabold text-slate-800">
+                Welcome back, <span className="text-sky-700 font-black">{displayName}</span>! 👋
               </span>
             </div>
           )}
@@ -93,16 +104,16 @@ export const Navbar: React.FC = () => {
           {isUserLoggedIn ? (
             <button
               onClick={() => setActiveTab('dashboard')}
-              className="flex items-center gap-2 px-4.5 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold shadow-lg shadow-slate-900/10 transition-all cursor-pointer transform hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-4.5 py-2 rounded-full bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-extrabold shadow-lg shadow-sky-600/25 transition-all cursor-pointer transform hover:-translate-y-0.5"
             >
               <UserCheck className="w-4 h-4" />
-              <span>Go to App</span>
+              <span>Go to Vault</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           ) : (
             <button
               onClick={() => setAuthModalOpen(true)}
-              className="flex items-center gap-2 px-4.5 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold shadow-lg shadow-slate-900/10 transition-all cursor-pointer transform hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-4.5 py-2 rounded-full bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-extrabold shadow-lg shadow-sky-600/25 transition-all cursor-pointer transform hover:-translate-y-0.5"
             >
               <Lock className="w-3.5 h-3.5 text-white" />
               <span>Sign In</span>

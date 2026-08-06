@@ -86,16 +86,17 @@ export const ClerkAuthModal: React.FC = () => {
   const isSignIn = authMode === 'signin';
   const errorInfo = ERROR_COPY[errorType];
 
-  /* Clerk appearance tokens for white card container */
+  /* Clerk appearance tokens for splendid white glassmorphic card container */
   const clerkAppearance = {
     variables: {
-      colorPrimary: '#0f172a',
+      colorPrimary: '#0284c7',
       colorBackground: '#ffffff',
       colorText: '#0f172a',
       colorTextSecondary: '#475569',
       colorInputBackground: '#f8fafc',
       colorInputText: '#0f172a',
       colorTextOnPrimaryBackground: '#ffffff',
+      borderRadius: '1rem',
     },
     elements: {
       rootBox: 'w-full',
@@ -103,23 +104,23 @@ export const ClerkAuthModal: React.FC = () => {
       headerTitle: 'hidden',
       headerSubtitle: 'hidden',
       socialButtonsBlockButton:
-        'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold rounded-xl py-3 shadow-sm text-sm transition-all',
+        'bg-white border border-sky-200/80 text-slate-700 hover:border-sky-400 hover:bg-sky-50/50 font-bold rounded-2xl py-3 shadow-sm text-sm transition-all flex items-center justify-center gap-2',
       socialButtonsIconButton:
-        'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50',
-      dividerLine: 'bg-slate-200 my-4',
-      dividerText: 'text-slate-400 text-xs font-semibold uppercase tracking-wider px-2',
+        'bg-white border border-sky-200/80 text-slate-700 hover:border-sky-400 hover:bg-sky-50/50 rounded-2xl py-3',
+      dividerLine: 'bg-sky-100 my-5',
+      dividerText: 'text-slate-400 text-xs font-extrabold uppercase tracking-widest px-3 bg-white',
       formFieldRow: 'mb-4',
-      formFieldLabel: 'text-slate-700 text-xs font-bold uppercase tracking-wider mb-2 block text-left',
+      formFieldLabel: 'text-slate-800 text-xs font-black uppercase tracking-wider mb-2 block text-left',
       formFieldInput:
-        'bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-xl focus:border-sky-600 focus:ring-2 focus:ring-sky-600/20 transition-all py-3 px-4 mt-1.5 w-full block',
+        'bg-slate-50/80 border border-slate-300/80 text-slate-900 text-sm rounded-2xl focus:border-sky-600 focus:ring-4 focus:ring-sky-500/15 transition-all py-3 px-4 mt-1.5 w-full block shadow-inner',
       formButtonPrimary:
-        'bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition-all text-sm py-3.5 mt-2',
+        'bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-extrabold rounded-2xl shadow-lg shadow-sky-600/25 transition-all text-sm py-3.5 mt-3 transform active:scale-95 cursor-pointer',
       footer: 'hidden',
       footerAction: 'hidden',
-      footerActionLink: 'text-slate-900 font-bold hover:underline',
-      footerActionText: 'text-slate-600 text-xs',
-      identityPreviewText: 'text-slate-900',
-      identityPreviewEditButton: 'text-slate-900 font-bold',
+      footerActionLink: 'text-sky-600 font-extrabold hover:underline',
+      footerActionText: 'text-slate-600 text-xs font-medium',
+      identityPreviewText: 'text-slate-900 font-bold',
+      identityPreviewEditButton: 'text-sky-600 font-bold',
       devModeBadge: 'hidden',
     },
   };
