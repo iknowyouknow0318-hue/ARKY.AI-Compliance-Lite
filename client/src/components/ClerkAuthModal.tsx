@@ -125,95 +125,84 @@ export const ClerkAuthModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-2xl animate-fadeIn overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
       onClick={(e) => { if (e.target === e.currentTarget) setAuthModalOpen(false); }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="arky-auth-title"
     >
-      <div className="relative w-full max-w-4xl min-h-[560px] flex rounded-3xl shadow-2xl shadow-black/80 overflow-hidden border border-slate-700/50 my-6 animate-slideUp bg-white">
+      <div className="relative w-full max-w-4xl min-h-[540px] flex rounded-3xl shadow-2xl overflow-hidden border border-sky-100/90 my-6 animate-slideUp bg-white">
 
-        {/* ══ LEFT VISUAL PANEL (PHOTOGRAPHY + WAVE DIVIDER) ══ */}
-        <div className="relative hidden md:flex flex-col justify-between w-[48%] shrink-0 overflow-hidden bg-slate-950 p-8 lg:p-10 text-white">
+        {/* ══ LEFT VISUAL PANEL (LIGHT BLUE BRANDING) ══ */}
+        <div className="relative hidden md:flex flex-col justify-between w-[44%] shrink-0 overflow-hidden bg-slate-900 p-8 lg:p-10 text-white border-r border-sky-100/20">
           {/* Cyber photography background image */}
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-overlay transform scale-105 transition-transform duration-1000 hover:scale-100"
+            className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay transform scale-105 transition-transform duration-1000"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200')`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/40" />
-
-          {/* Organic Wave Divider SVG Mask Overlay */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 pointer-events-none z-10 hidden md:block">
-            <svg
-              className="h-full w-full text-white fill-current"
-              viewBox="0 0 100 500"
-              preserveAspectRatio="none"
-            >
-              <path d="M100,0 C30,120 70,260 0,380 C-40,440 20,480 100,500 L100,0 Z" />
-            </svg>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950/90" />
 
           {/* Top Brand Logo */}
           <div className="relative z-20 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center shadow-lg shadow-brand-500/30">
+            <div className="w-10 h-10 rounded-2xl bg-sky-600 flex items-center justify-center shadow-lg shadow-sky-500/30">
               <ShieldCheck className="w-5 h-5 text-white" />
             </div>
             <div>
               <p className="font-black text-lg tracking-tight text-white leading-none">
-                Arky<span className="text-brand-400">AI</span>
+                Arky<span className="text-sky-400">AI</span>
               </p>
-              <p className="text-[9px] text-slate-300 font-bold tracking-wider uppercase mt-0.5">
+              <p className="text-[9px] text-sky-200 font-bold tracking-wider uppercase mt-0.5">
                 Compliance Vault
               </p>
             </div>
           </div>
 
           {/* Center High-Impact Display Headline */}
-          <div className="relative z-20 my-auto py-8">
-            <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-500/20 text-brand-300 border border-brand-400/30 inline-block mb-4">
+          <div className="relative z-20 my-auto py-6 pr-2">
+            <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-400/30 inline-block mb-4">
               SOC 2 · HIPAA · GDPR · ISO 27001
             </span>
-            <h2 className="font-display text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight mb-4 drop-shadow-md">
-              Enterprise AI Compliance &amp; Audit-Ready Vault
+            <h2 className="font-display text-2xl lg:text-3xl font-extrabold text-white leading-tight tracking-tight mb-3">
+              Enterprise AI Compliance &amp; Audit Vault
             </h2>
-            <p className="text-xs text-slate-300 leading-relaxed max-w-sm drop-shadow">
+            <p className="text-xs text-sky-100/80 leading-relaxed max-w-xs">
               Automate policy synthesis, control mapping, and evidence binders with instant 1-click auditor PDF exports.
             </p>
           </div>
 
           {/* Bottom Social Links & Activity Tags */}
-          <div className="relative z-20 pt-6 border-t border-white/10 flex items-center justify-between text-[11px] font-semibold text-slate-300">
+          <div className="relative z-20 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-semibold text-sky-200">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               <span>Big-4 Approved Reports</span>
             </div>
-            <span className="flex items-center gap-1 text-brand-300 font-bold hover:underline cursor-pointer">
+            <span className="flex items-center gap-1 text-sky-400 font-bold hover:underline cursor-pointer">
               Our Features <ArrowRight className="w-3.5 h-3.5" />
             </span>
           </div>
         </div>
 
-        {/* ══ RIGHT WHITE FORM PANEL (ORGANIC CARD) ══ */}
-        <div className="flex-1 bg-white text-slate-900 flex flex-col justify-between p-8 sm:p-10 relative z-20 overflow-y-auto">
+        {/* ══ RIGHT WHITE FORM PANEL (CLEAN ALIGNMENT) ══ */}
+        <div className="flex-1 bg-white text-slate-900 flex flex-col justify-between p-6 sm:p-10 relative z-20 overflow-y-auto">
           {/* Close Modal Button */}
           <button
             onClick={() => setAuthModalOpen(false)}
             id="arky-auth-modal-close"
             aria-label="Close login modal"
-            className="absolute top-5 right-5 z-30 p-2 rounded-full text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all cursor-pointer"
+            className="absolute top-5 right-5 z-30 p-2 rounded-full text-slate-400 hover:text-slate-900 hover:bg-sky-50 transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="max-w-md w-full mx-auto my-auto py-2">
             {/* Header */}
-            <div className="mb-8 text-left">
-              <h1 id="arky-auth-title" className="font-display text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            <div className="mb-6 text-left">
+              <h1 id="arky-auth-title" className="font-display text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 {isSignIn ? 'Welcome Back' : 'Create Account'}
               </h1>
-              <p className="text-xs text-slate-500 mt-1.5 font-medium">
+              <p className="text-xs text-slate-500 mt-1 font-medium">
                 {isSignIn
                   ? 'Sign in to your compliance workspace and pick up where you left off.'
                   : 'Start your 5-minute audit readiness setup.'}
