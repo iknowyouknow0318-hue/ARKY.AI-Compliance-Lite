@@ -12,13 +12,13 @@ export const ComplianceGauge: React.FC<ComplianceGaugeProps> = ({ score, size = 
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
-  let color = '#34d399'; // Emerald
+  let color = '#0284c7'; // Sky Blue 600
   let textLabel = 'Audit Ready';
   if (score < 50) {
-    color = '#f87171'; // Red
+    color = '#ef4444'; // Red
     textLabel = 'High Risk';
   } else if (score < 80) {
-    color = '#fbbf24'; // Amber
+    color = '#f59e0b'; // Amber
     textLabel = 'In Progress';
   }
 
@@ -30,7 +30,7 @@ export const ComplianceGauge: React.FC<ComplianceGaugeProps> = ({ score, size = 
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="rgba(30, 41, 59, 0.8)"
+          stroke="rgba(224, 242, 254, 0.9)"
           strokeWidth={strokeWidth}
           fill="transparent"
         />
@@ -50,8 +50,8 @@ export const ComplianceGauge: React.FC<ComplianceGaugeProps> = ({ score, size = 
       </svg>
       {/* Center Label */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <span className="text-3xl font-black text-white tracking-tight">{score}%</span>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5" style={{ color }}>
+        <span className="text-3xl font-black text-slate-900 tracking-tight">{score}%</span>
+        <span className="text-[10px] font-extrabold uppercase tracking-wider mt-0.5" style={{ color }}>
           {textLabel}
         </span>
       </div>
