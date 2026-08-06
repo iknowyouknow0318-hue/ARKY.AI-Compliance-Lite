@@ -106,13 +106,14 @@ export const ClerkAuthModal: React.FC = () => {
         'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold rounded-xl py-3 shadow-sm text-sm transition-all',
       socialButtonsIconButton:
         'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50',
-      dividerLine: 'bg-slate-200',
-      dividerText: 'text-slate-400 text-xs font-semibold uppercase tracking-wider',
-      formFieldLabel: 'text-slate-700 text-xs font-bold uppercase tracking-wider mb-1',
+      dividerLine: 'bg-slate-200 my-4',
+      dividerText: 'text-slate-400 text-xs font-semibold uppercase tracking-wider px-2',
+      formFieldRow: 'mb-4',
+      formFieldLabel: 'text-slate-700 text-xs font-bold uppercase tracking-wider mb-2 block text-left',
       formFieldInput:
-        'bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-xl focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 transition-all py-3 px-4',
+        'bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-xl focus:border-sky-600 focus:ring-2 focus:ring-sky-600/20 transition-all py-3 px-4 mt-1.5 w-full block',
       formButtonPrimary:
-        'bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition-all text-sm py-3.5',
+        'bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition-all text-sm py-3.5 mt-2',
       footer: 'hidden',
       footerAction: 'hidden',
       footerActionLink: 'text-slate-900 font-bold hover:underline',
@@ -231,10 +232,10 @@ export const ClerkAuthModal: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-4" noValidate aria-label="Sign in form">
                 {/* Email */}
                 <div>
-                  <label htmlFor="arky-email" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label htmlFor="arky-email" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 text-left">
                     Email Address
                   </label>
-                  <div className="relative">
+                  <div className="relative mt-1.5">
                     <input
                       id="arky-email"
                       type="email"
@@ -243,17 +244,17 @@ export const ClerkAuthModal: React.FC = () => {
                       placeholder="Enter your email"
                       autoComplete="email"
                       aria-required="true"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-sky-600 transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Password */}
                 <div>
-                  <label htmlFor="arky-password" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  <label htmlFor="arky-password" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 text-left">
                     Password
                   </label>
-                  <div className="relative">
+                  <div className="relative mt-1.5">
                     <input
                       id="arky-password"
                       type={showPassword ? 'text' : 'password'}
